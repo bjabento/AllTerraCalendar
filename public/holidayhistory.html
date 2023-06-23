@@ -45,55 +45,27 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="markholiday.html">Marcação de Férias</a>
             <a class="dropdown-item" href="holidayhistory.html">Histórico de Férias</a>
-            <a class="dropdown-item" id="logoutButton">Logout <i class="fas fa-door-open"></i></a>
+            <a class="dropdown-item" id="logoutButton" href="#">Logout <i class="fas fa-door-open"></i></a>
           </div>
         </li>
       </ul>
     </div>
   </nav>
   
-  <div class="container mt-5">
-    <h2>Histórico de Férias</h2>
-    <table id="holidayTable" class="table">
-      <thead>
-        <tr>
-          <th>Datas</th>
-          <th>Notas</th>
-          <th>Estado do Pedido</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <!-- Rest of the HTML content -->
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    // Fetch holidays from the backend and populate the table
-    function fetchHolidays() {
-      // ...
-    }
-
-    // Add a new holiday using the form data
-    function addHoliday(event) {
-      // ...
-    }
-
-    // Accept a holiday by its ID
-    function acceptHoliday(id, row) {
-      // ...
-    }
-
-    // Reject a holiday by its ID
-    function rejectHoliday(id, row) {
-      // ...
-    }
-
     // Logout function
     function logout() {
-      fetch('/logout')
+      fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           if (response.ok) {
             // Redirect to the login page after successful logout
@@ -107,14 +79,8 @@
         });
     }
 
-    // Attach event listener to the form submission
-    document.getElementById('holidayForm').addEventListener('submit', addHoliday);
-
     // Attach event listener to the logout button
     document.getElementById('logoutButton').addEventListener('click', logout);
-
-    // Fetch holidays on page load
-    fetchHolidays();
   </script>
 </body>
 </html>
