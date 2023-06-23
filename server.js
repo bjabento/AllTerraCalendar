@@ -45,31 +45,17 @@ app.use(
 
 // Function to check if the user is logged in
 function isLoggedIn(req, res, next) {
-  if (req.session.userId) {
+  if (req.session.isLoggedIn) {
     next(); // Proceed to the next middleware/route handler
   } else {
-    console.log('user nao loggado');
     res.redirect('/index.html'); // Redirect to the login page
   }
 }
 
-// Function to check if the user is logged out
-function isLoggedOut(req, res, next) {
-  if (!req.session.isLoggedIn || !req.session.userId) {
-    next(); // Proceed to the next middleware/route handler
-  } else {
-    res.redirect('/holidayhistory.html'); // Redirect to the logged-in page
-  }
-}
-
-// Serve the login page
 // Serve the login page
 app.get('/', (req, res) => {
-  if (req.session.isLoggedIn && req.session.userId) {
-    res.redirect('/holidayhistory.html'); // Redirect to the main page if the user is already logged in
-  } else {
-    res.sendFile(path.join(__dirname, 'public', 'index.html')); // Serve the login page
-  }
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
 });
 
 // Handle login
@@ -119,7 +105,6 @@ app.post('/login', (req, res) => {
 // Handle logout
 app.get('/logout', (req, res) => {
   // Clear session data
-  console.log('ID USER:', req.session.userId);
   req.session.destroy((error) => {
     if (error) {
       console.error('Error destroying session:', error);
@@ -127,19 +112,13 @@ app.get('/logout', (req, res) => {
     } else {
       console.log('Cheguei');
       //res.sendStatus(200);
-      res.redirect('/index.html');  
+      res.redirect('/index.html');
     }
   });
 });
 
 // Serve the API routes
 app.use('/api', isLoggedIn, apiRoutes);
-app.use('/public/*', isLoggedIn);
-
-app.get('/holidayhistory', isLoggedIn, function(req, res)
-{
-  res.render('holidayhistory', {id : req.session.userId})
-});
 
 // Start the server
 const port = process.env.PORT || 3000;
