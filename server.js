@@ -55,6 +55,7 @@ function isLoggedIn(req, res, next) {
 // Serve the login page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
 });
 
 // Handle login
@@ -102,14 +103,16 @@ app.post('/login', (req, res) => {
 });
 
 // Handle logout
-app.post('/api/logout', (req, res) => {
+app.get('/logout', (req, res) => {
   // Clear session data
   req.session.destroy((error) => {
     if (error) {
       console.error('Error destroying session:', error);
       res.status(500).json({ error: 'Internal server error' });
     } else {
-      res.sendStatus(200);
+      console.log('Cheguei');
+      //res.sendStatus(200);
+      res.redirect('/index.html');
     }
   });
 });

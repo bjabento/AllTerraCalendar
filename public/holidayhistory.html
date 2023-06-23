@@ -45,7 +45,8 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="markholiday.html">Marcação de Férias</a>
             <a class="dropdown-item" href="holidayhistory.html">Histórico de Férias</a>
-            <a class="dropdown-item" id="logoutButton" href="#">Logout <i class="fas fa-door-open"></i></a>
+            <!--<button type="submit" class="dropdown-item">Logout</button>-->
+            <a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>
           </div>
         </li>
       </ul>
@@ -59,7 +60,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
     // Logout function
-    function logout() {
+    /*function logout() {
       fetch('/api/logout', {
         method: 'POST',
         headers: {
@@ -77,7 +78,7 @@
         .catch(error => {
           console.error('Logout failed:', error);
         });
-    }
+    }*/
 
     // Attach event listener to the logout button
     document.getElementById('logoutButton').addEventListener('click', logout);
