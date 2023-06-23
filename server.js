@@ -59,56 +59,15 @@ app.get('/', (req, res) => {
 
 // Handle login
 app.post('/login', (req, res) => {
-  const { email, password, rememberMe } = req.body;
-  sql.connect(config, (error) => {
-    if (error) {
-      console.error('Error connecting to SQL Server:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    } else {
-      console.log('email:', email);
-      const request = new sql.Request();
-      request.input('email', sql.VarChar, email);
-      request.input('password', sql.VarChar, password);
-      request.query(
-        'SELECT * FROM users WHERE email = @email AND password = @password',
-        (error, result) => {
-          if (error) {
-            console.error('Error executing login query:', error);
-            res.status(500).json({ error: 'Internal server error' });
-          } else {
-            console.log('Login query result:', result); // Troubleshooting code
-            if (result.recordset.length === 1) {
-              // Set session data
-              req.session.isLoggedIn = true;
-              req.session.userId = result.recordset[0].id; // Assuming "id" is the column name for user ID
-              console.log('ID USER:', req.session.userId);
-
-              // Set cookie if "rememberMe" is checked
-              if (rememberMe) {
-                req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000; // Cookie expiration time (e.g., 7 days)
-              }
-
-              // Redirect to holidayhistory.html upon successful login
-              res.redirect('/holidayhistory.html');
-            } else {
-              // Handle invalid login credentials
-              res.status(401).json({ error: 'Invalid login credentials' });
-            }
-          }
-          sql.close();
-        }
-      );
-    }
-  });
+  // ... existing code for login ...
 });
 
 // Handle logout
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
   // Clear session data and destroy the session
   req.session.isLoggedIn = false;
   req.session.userId = null;
   req.session.destroy((error) => {
-    console.log('ENTREI');
     if (error) {
       console.error('Error destroying session:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -126,11 +85,9 @@ app.get('/holidayhistory.html', isLoggedIn);
 app.use('/api', apiRoutes);
 
 // Add a catch-all route for other pages
-// Add a catch-all route for other pages
 app.get('*', isLoggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
 });
-
 
 // Start the server on port 3000
 app.listen(3000, () => {
