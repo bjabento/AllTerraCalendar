@@ -30,6 +30,20 @@
     margin-right: 5px;
   }
 
+
+  tr.Approved {
+    background-color: green;
+  }
+
+  tr.rejected {
+    background-color: red;
+  }
+
+  tr.pending {
+    background-color: lightgray;
+  }
+</style>
+
 </style>
 <body>
   <nav class="navbar navbar-expand-lg fixed-top">
@@ -44,8 +58,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="markholiday.html">Marcação de Férias</a>
-            <a class="dropdown-item" href="holidayhistory.html">Histórico de Férias</a>
-            <!--<button type="submit" class="dropdown-item">Logout</button>-->
+            <a class="dropdown-item" href="/holidayhistory">Histórico de Férias</a>
             <a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>
           </div>
         </li>
@@ -73,8 +86,58 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
 
+    // Function to fetch holiday data from the server
+    function fetchHolidayData() {
+      $.ajax({
+        url: '/api/holidays', // Replace with the appropriate API endpoint
+        method: 'GET',
+        success: function(data) {
+          populateHolidayTable(data);
+        },
+        error: function() {
+          console.error('Failed to fetch holiday data');
+        }
+      });
+    }
+
+    // Function to populate the holiday table with data
+    function populateHolidayTable(data) {
+      var tbody = $('#holidayTable tbody');
+      tbody.empty();
+
+      data.forEach(function(holiday) {
+        var row = $('<tr></tr>');
+        row.append('<td>' + holiday.start_date + ' - ' + holiday.end_date + '</td>');
+        row.append('<td>' + holiday.notas + '</td>');
+        row.append('<td>' + holiday.status + '</td>');
+        row.append('<td></td>'); // Empty column, you can customize this column as needed
+
+// Set background color based on holiday status
+if (holiday.status === 'Approved') {
+      row.css('background-color', '#71c171');
+    } else if (holiday.status === 'Rejected') {
+      row.css('background-color', '#ff4d4d');
+    } else {
+      row.css('background-color', 'lightgray');
+    }
+
+        tbody.append(row);
+      });
+    }
+
+    // Function to handle the logout action
+    function logout() {
+      // Add your logout logic here
+      console.log('Logout');
+    }
+
     // Attach event listener to the logout button
     document.getElementById('logoutButton').addEventListener('click', logout);
+
+    // Fetch holiday data when the page loads
+    $(document).ready(function() {
+      fetchHolidayData();
+    });
   </script>
 </body>
 </html>

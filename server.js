@@ -93,7 +93,7 @@ app.post('/login', (req, res) => {
               }
 
               // Redirect to holidayhistory.html upon successful login
-              res.redirect('/holidayhistory.html');
+              res.render('public/holidayhistory');
             } else {
               // Handle invalid login credentials
               res.status(401).json({ error: 'Invalid login credentials' });
@@ -115,7 +115,7 @@ app.get('/logout', (req, res) => {
     } else {
       console.log('Cheguei');
       //res.sendStatus(200);
-      res.redirect('/views/public/login.ejs');
+      res.render('public/index');
     }
   });
 });
