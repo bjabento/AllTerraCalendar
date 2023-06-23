@@ -57,7 +57,7 @@ function isLoggedIn(req, res, next) {
 // Serve the login page
 app.get('/', (req, res) => {
   res.render('public/index')
-  //res.sendFile(path.join(__dirname, 'public', 'index.ejs'));
+  //res.redirect('public/markholiday')
   //res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
 });
 
@@ -119,6 +119,8 @@ app.get('/logout', (req, res) => {
     }
   });
 });
+
+
 
 // Serve the API routes
 app.use('/api', isLoggedIn, apiRoutes);

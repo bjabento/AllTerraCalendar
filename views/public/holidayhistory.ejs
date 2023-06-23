@@ -57,7 +57,7 @@
             Utilizador AllTerra
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="markholiday.html">Marcação de Férias</a>
+            <a class="dropdown-item" href="/markholiday.html">Marcação de Férias</a>
             <a class="dropdown-item" href="#" onclick="dropdownhistory()">Histórico de Férias</a>
             <a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>
           </div>
@@ -139,9 +139,12 @@ if (holiday.status === 'Approved') {
       fetchHolidayData();
     });
 
-    function dropdownhistory(){
-      res.redirect('holidayhistory');
-    };
+    // ...
+
+
+
+
+    
   </script>
 </body>
 </html>
