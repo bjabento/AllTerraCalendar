@@ -22,6 +22,8 @@ const config = {
 // Create an instance of Express.js
 const app = express();
 
+app.set('view engine', 'ejs');
+
 // Enable parsing of URL-encoded data
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -54,8 +56,9 @@ function isLoggedIn(req, res, next) {
 
 // Serve the login page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
+  res.render('public/index')
+  //res.sendFile(path.join(__dirname, 'public', 'index.ejs'));
+  //res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
 });
 
 // Handle login
@@ -112,7 +115,7 @@ app.get('/logout', (req, res) => {
     } else {
       console.log('Cheguei');
       //res.sendStatus(200);
-      res.redirect('/index.html');
+      res.redirect('/views/public/login.ejs');
     }
   });
 });
