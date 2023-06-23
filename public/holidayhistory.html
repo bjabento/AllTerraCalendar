@@ -43,129 +43,29 @@
             Utilizador AllTerra
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Marcação de Férias</a>
-            <a class="dropdown-item" href="#">Histórico de Férias</a>
-            <a class="dropdown-item" id="logoutButton">Logout <i class="fas fa-door-open"></i></a>
+            <a class="dropdown-item" href="markholiday.html">Marcação de Férias</a>
+            <a class="dropdown-item" href="holidayhistory.html">Histórico de Férias</a>
+            <!--<button type="submit" class="dropdown-item">Logout</button>-->
+            <a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>
           </div>
         </li>
       </ul>
     </div>
   </nav>
   
-  <div class="container mt-5">
-    <h2>Histórico de Férias</h2>
-    <table id="holidayTable" class="table">
-      <thead>
-        <tr>
-          <th>Datas</th>
-          <th>Notas</th>
-          <th>Estado do Pedido</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <!-- Rest of the HTML content -->
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    // Fetch holidays from the backend and populate the table
-    function fetchHolidays() {
-      fetch('/api/holidays')
-        .then(response => response.json())
-        .then(holidays => {
-          const table = document.getElementById('holidayTable').getElementsByTagName('tbody')[0];
-          table.innerHTML = '';
-          holidays.forEach(holiday => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td>${holiday.startDate} - ${holiday.endDate}</td>
-              <td>${holiday.employee}</td>
-              <td>${holiday.status}</td>
-              <td>
-                ${
-                  holiday.status === 'Pending'
-                    ? `<button class="btn btn-success btn-sm" onclick="acceptHoliday(${holiday.id}, this.parentElement.parentElement)">Accept</button>
-                       <button class="btn btn-danger btn-sm" onclick="rejectHoliday(${holiday.id}, this.parentElement.parentElement)">Reject</button>`
-                    : ''
-                }
-              </td>
-            `;
-            if (holiday.status === 'Accepted') {
-              row.classList.add('table-success');
-            } else if (holiday.status === 'Rejected') {
-              row.classList.add('table-danger');
-            }
-            table.appendChild(row);
-          });
-        });
-    }
-
-    // Add a new holiday using the form data
-    function addHoliday(event) {
-      event.preventDefault();
-
-      const startDateInput = document.getElementById('startDateInput');
-      const endDateInput = document.getElementById('endDateInput');
-      const employeeInput = document.getElementById('employeeInput');
-
-      const newHoliday = {
-        startDate: startDateInput.value,
-        endDate: endDateInput.value,
-        employee: employeeInput.value,
-        status: 'Pending'
-      };
-
-      fetch('/api/holidays', {
+    // Logout function
+    /*function logout() {
+      fetch('/api/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newHoliday)
-      })
-        .then(response => response.json())
-        .then(() => {
-          startDateInput.value = '';
-          endDateInput.value = '';
-          employeeInput.value = '';
-          fetchHolidays();
-        });
-    }
-
-    // Accept a holiday by its ID
-    function acceptHoliday(id, row) {
-      fetch(`/api/holidays/${id}/accept`, {
-        method: 'PATCH'
-      })
-        .then(response => response.json())
-        .then(holiday => {
-          row.classList.remove('table-danger');
-          row.classList.add('table-success');
-          row.querySelector('td:nth-child(3)').textContent = 'Accepted';
-          row.querySelector('td:nth-child(4)').innerHTML = '';
-        });
-    }
-
-    // Reject a holiday by its ID
-    function rejectHoliday(id, row) {
-      fetch(`/api/holidays/${id}/reject`, {
-        method: 'PATCH'
-      })
-        .then(response => response.json())
-        .then(holiday => {
-          row.classList.remove('table-success');
-          row.classList.add('table-danger');
-          row.querySelector('td:nth-child(3)').textContent = 'Rejected';
-          row.querySelector('td:nth-child(4)').innerHTML = '';
-        });
-    }
-
-    // Logout function
-    function logout() {
-      fetch('/logout', {
-        method: 'POST'
+        }
       })
         .then(response => {
           if (response.ok) {
@@ -178,16 +78,10 @@
         .catch(error => {
           console.error('Logout failed:', error);
         });
-    }
-
-    // Attach event listener to the form submission
-    document.getElementById('holidayForm').addEventListener('submit', addHoliday);
+    }*/
 
     // Attach event listener to the logout button
     document.getElementById('logoutButton').addEventListener('click', logout);
-
-    // Fetch holidays on page load
-    fetchHolidays();
   </script>
 </body>
 </html>
