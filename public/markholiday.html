@@ -89,7 +89,7 @@
 
     .fc-toolbar h2 {
       color: #fff;
-      font-size: 18px;
+      font-size: 25px;
       margin: 0;
     }
 
@@ -119,8 +119,10 @@
     }
 
     .fc-content {
-      background-color: #fff;
+      background-color: #9ac5a1;
       color: #262626;
+      font-weight: bold;
+      padding-left: 1%;
     }
 
     .fc-event {
@@ -138,27 +140,38 @@
       background-color: #f5f5f5;
       color: #262626;
     }
+
+    /* Footer Styles */
+    footer {
+      background-color: #262626;
+      color: #fff;
+      padding: 40px;
+      text-align: center;
+    }
+
+    footer p {
+      margin-bottom: 0px;
+    }
   </style>
+
   <title>Calendário</title>
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">Calendário</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="index.html">
+      <img src="logo.jpeg" width="220" height="40" class="d-inline-block align-top" alt="">
+    </a>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+      <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Usuário
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Utilizador AllTerra
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <button class="dropdown-item logout-button" onclick="logout()">
-              <i class="fas fa-sign-out-alt"></i>Sair
-            </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/markholiday.html">Marcação de Férias</a>
+            <a class="dropdown-item" href="#" onclick="dropdownhistory()">Histórico de Férias</a>
+            <a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>
           </div>
         </li>
       </ul>
@@ -166,7 +179,7 @@
   </nav>
 
   <div class="container">
-    <h1>Calendário</h1>
+    <!--<h1>Calendário</h1>-->
     <div id="calendar"></div>
   </div>
 
@@ -201,6 +214,10 @@
     </div>
   </div>
 
+  <footer>
+    <p>© 2023 All rights reserved.</p>
+  </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
@@ -210,27 +227,13 @@
     $(document).ready(function () {
       $('#calendar').fullCalendar({
         header: {
-          left: 'prev,next today',
+          right: 'next',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay'
+          left: 'prev'
         },
         defaultView: 'month',
         locale: 'pt-br',
-        editable: false,
-        events: [
-          {
-            title: 'Feriado 1',
-            start: '2023-06-01',
-            end: '2023-06-01',
-            color: '#FF0000'
-          },
-          {
-            title: 'Feriado 2',
-            start: '2023-06-10',
-            end: '2023-06-10',
-            color: '#FF0000'
-          }
-        ],
+        editable: false ,
         dayClick: function (date, jsEvent, view) {
           $('#requestModal').modal('show');
           $('#requestForm #startDate').val(moment(date).format('YYYY-MM-DD'));
@@ -249,7 +252,7 @@
             title: name,
             start: startDate,
             end: endDate,
-            color: '#FF0000'
+            color: '#000'
           }, true);
 
           $('#requestModal').modal('hide');
