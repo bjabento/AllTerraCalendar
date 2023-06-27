@@ -1,0 +1,20 @@
+fetch('/api/holidays', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newHoliday)
+      })
+        .then(response => response.json())
+        .then(() => {
+          startDateInput.value = '';
+          endDateInput.value = '';
+          notasInput.value = '';
+          statusInput.value = 'Pending';
+          alert('Holiday request submitted successfully!');
+        })
+        .catch(error => {
+          console.error('Error adding holiday:', error);
+          alert('Failed to submit holiday request.');
+        });
+    }
