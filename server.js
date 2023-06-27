@@ -89,11 +89,11 @@ app.post('/login', (req, res) => {
 
               // Set cookie if "rememberMe" is checked
               if (rememberMe) {
-                req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000; // Cookie expiration time (e.g., 7 days)
+                req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000; //  expiration time (e.g., 7 days)
               }
 
               // Redirect to holidayhistory.html upon successful login
-              res.render('public/holidayhistory');
+              res.redirect('/holidayhistory.html'); // Updated redirect path
             } else {
               // Handle invalid login credentials
               res.status(401).json({ error: 'Invalid login credentials' });
@@ -105,6 +105,7 @@ app.post('/login', (req, res) => {
   });
 });
 
+
 // Handle logout
 app.get('/logout', (req, res) => {
   // Clear session data
@@ -115,7 +116,7 @@ app.get('/logout', (req, res) => {
     } else {
       console.log('Cheguei');
       //res.sendStatus(200);
-      res.render('public/index');
+      res.render('public/index.html');
     }
   });
 });
