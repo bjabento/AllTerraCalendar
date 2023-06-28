@@ -6,13 +6,14 @@ const app = express();
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-    res.render('index');
-  });
+    res.render('login');
+});
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log('Listening on port 3000!'));
 
 app.use(express.json());
+app.use(express.static(__dirname + '/css'));
 
 const Sequelize = require('sequelize');
 const moment = require('moment');
@@ -68,4 +69,3 @@ app.post('/loginRequest', (req, res) => {
         }
     }).catch(err => res.redirect('/'))
 })
-
