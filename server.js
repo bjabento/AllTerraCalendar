@@ -24,7 +24,7 @@ const config = {
 // Create an instance of Express.js
 const app = express();
 
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 
 // Enable parsing of URL-encoded data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,7 +58,8 @@ function isLoggedIn(req, res, next) {
 
 // Serve the login page
 app.get('/', (req, res) => {
-  res.render('public/index')
+  res.render('public/index');
+  //res.render('public/holidayhistory');
   //res.redirect('public/markholiday')
   //res.sendFile(path.join(__dirname, 'public', 'holidayhistory.html'));
 });
@@ -118,7 +119,7 @@ app.get('/logout', (req, res) => {
     } else {
       console.log('Cheguei');
       //res.sendStatus(200);
-      res.render('public/index.html');
+      res.redirect('/index.html');
     }
   });
 });

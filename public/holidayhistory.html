@@ -85,6 +85,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
 
+    /*function requireLogin(req, res, next) {
+      if (req.session.userId) {
+        next();
+      } else {
+        res.redirect('/index');
+      } 
+    }
+
+    app.get('/public', requireLogin, (req,res) => {
+      res.render('public');
+    });*/
+
     // Function to fetch holiday data from the server
     function fetchHolidayData() {
       $.ajax({
@@ -124,11 +136,22 @@ if (holiday.status === 'Approved') {
       });
     }
 
-    // Function to handle the logout action
-    function logout() {
-      // Add your logout logic here
-      console.log('Logout');
+    // Handle logout
+/*app.get('/logout', (req, res) => {
+  // Clear session data
+  console.log('ID USER:', req.session.userId);
+  req.session.destroy((error) => {
+    if (error) {
+      console.error('Error destroying session:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      console.log('Cheguei');
+      //res.sendStatus(200);
+      res.redirect('/index.html');
+      //res.redirect('/index.html');  
     }
+  });
+});*/
 
     // Attach event listener to the logout button
     document.getElementById('logoutButton').addEventListener('click', logout);
