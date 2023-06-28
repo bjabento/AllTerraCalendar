@@ -69,7 +69,7 @@
       background-color: #262626;
       border-color: #262626;
       color: #fff;
-      transition: background-color 0.3s;
+      
     }
 
     .btn-primary:hover {
@@ -94,24 +94,24 @@
     }
 
     .fc-button {
-      background-color: transparent;
+      background-color: goldenrod;
+      background: goldenrod;
       border: none;
-      color: #fff;
+      color: #000;
       font-weight: bold;
-      transition: background-color 0.3s;
       padding: 5px 10px;
       margin-right: 5px;
     }
 
     .fc-button:hover {
-      background-color: #262626;
-      color: #fff;
+      background-color: goldenrod;
+      color: #000;
     }
 
     .fc-button.active,
     .fc-button.active:hover {
       background-color: #444;
-      color: #fff;
+      color: goldenrod;
     }
 
     .fc-button-today {
@@ -239,6 +239,7 @@
           $('#requestForm #startDate').val(moment(date).format('YYYY-MM-DD'));
           $('#requestForm #endDate').val(moment(date).format('YYYY-MM-DD'));
         }
+
       });
 
       $('#requestForm').submit(function (event) {
