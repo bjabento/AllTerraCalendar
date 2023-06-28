@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('../configs/Database');
 
-const Users = db.define('user', {
+const Users = db.define('users', {
     id: {
         type: Sequelize.INTEGER,
-        primarykey: true,
+        primaryKey: true,
         autoIncrement: true
     },
     email: {
@@ -15,6 +15,9 @@ const Users = db.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     }
-}, {timestamps: false})
+}, {
+    timestamps: false,
+    tableName: 'users' // Specify the table name if it's different from the model name
+});
 
 module.exports = Users;
