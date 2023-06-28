@@ -1,161 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendarização de Férias</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
-  <style>
-    body {
-      padding-top: 70px;
-      background-color: #f5f5f5;
-      font-family: Arial, sans-serif;
-    }
-
-    .navbar {
-      background-color: #262626;
-    }
-
-    .navbar-nav .nav-link.dropdown-toggle {
-      color: white;
-    }
-
-    .logout-button {
-      color: white;
-      padding: 0.25rem;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      outline: none;
-    }
-
-    .logout-button i {
-      margin-right: 5px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    form .form-group label {
-      font-weight: bold;
-    }
-
-    .modal-content {
-      border-radius: 5px;
-    }
-
-    .modal-header {
-      border-bottom: none;
-    }
-
-    .modal-body {
-      padding: 20px;
-    }
-
-    .btn-primary {
-      background-color: #262626;
-      border-color: #262626;
-      color: #fff;
-      transition: background-color 0.3s;
-    }
-
-    .btn-primary:hover {
-      background-color: #444;
-      border-color: #444;
-    }
-
-    .btn-primary:focus {
-      box-shadow: none;
-    }
-
-    .fc-toolbar {
-      background-color: #262626;
-      border: none;
-      padding: 10px;
-    }
-
-    .fc-toolbar h2 {
-      color: #fff;
-      font-size: 25px;
-      margin: 0;
-    }
-
-    .fc-button {
-      background-color: transparent;
-      border: none;
-      color: #fff;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      padding: 5px 10px;
-      margin-right: 5px;
-    }
-
-    .fc-button:hover {
-      background-color: #262626;
-      color: #fff;
-    }
-
-    .fc-button.active,
-    .fc-button.active:hover {
-      background-color: #444;
-      color: #fff;
-    }
-
-    .fc-button-today {
-      font-weight: normal;
-    }
-
-    .fc-content {
-      background-color: #9ac5a1;
-      color: #262626;
-      font-weight: bold;
-      padding-left: 1%;
-    }
-
-    .fc-event {
-      background-color: #262626;
-      border-color: #262626;
-      color: #fff;
-    }
-
-    .fc-event:hover {
-      background-color: #444;
-      border-color: #444;
-    }
-
-    .fc-today {
-      background-color: #f5f5f5;
-      color: #262626;
-    }
-
-    /* Footer Styles */
-    footer {
-      background-color: #262626;
-      color: #fff;
-      padding: 40px;
-      text-align: center;
-    }
-
-    footer p {
-      margin-bottom: 0px;
-    }
-  </style>
-
-  <title>Calendário</title>
 </head>
+<style>
+  .navbar {
+    background-color: #262626;
+  }
+  body {
+    padding-top: 70px;
+  }
+
+  .navbar-nav .nav-link.dropdown-toggle {
+    color: white;
+  }
+
+  .logout-button {
+    color: white;
+    padding: 0.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .logout-button i {
+    margin-right: 5px;
+  }
+
+
+  tr.Approved {
+    background-color: green;
+  }
+
+  tr.rejected {
+    background-color: red;
+  }
+
+  tr.pending {
+    background-color: lightgray;
+  }
+</style>
 
 <body>
   <nav class="navbar navbar-expand-lg fixed-top">
@@ -178,92 +65,85 @@
     </div>
   </nav>
 
-  <div class="container">
-    <!--<h1>Calendário</h1>-->
-    <div id="calendar"></div>
+  <div class="container mt-5">
+    <h2>Histórico de Férias</h2>
+    <table id="holidayTable" class="table">
+      <thead>
+        <tr>
+          <th>Datas</th>
+          <th>Notas</th>
+          <th>Estado do Pedido</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
-  <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="requestModalLabel">Solicitar feriado</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="requestForm">
-            <div class="form-group">
-              <label for="name">Nome do feriado</label>
-              <input type="text" class="form-control" id="name" placeholder="Digite o nome do feriado" required>
-            </div>
-            <div class="form-group">
-              <label for="startDate">Data de início</label>
-              <input type="date" class="form-control" id="startDate" required>
-            </div>
-            <div class="form-group">
-              <label for="endDate">Data de término</label>
-              <input type="date" class="form-control" id="endDate" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar solicitação</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <p>© 2023 All rights reserved.</p>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/pt-br.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function () {
-      $('#calendar').fullCalendar({
-        header: {
-          right: 'next',
-          center: 'title',
-          left: 'prev'
+
+    // Function to fetch holiday data from the server
+    function fetchHolidayData() {
+      $.ajax({
+        url: '/api/holidays', // Replace with the appropriate API endpoint
+        method: 'GET',
+        success: function(data) {
+          populateHolidayTable(data);
         },
-        defaultView: 'month',
-        locale: 'pt-br',
-        editable: false ,
-        dayClick: function (date, jsEvent, view) {
-          $('#requestModal').modal('show');
-          $('#requestForm #startDate').val(moment(date).format('YYYY-MM-DD'));
-          $('#requestForm #endDate').val(moment(date).format('YYYY-MM-DD'));
+        error: function() {
+          console.error('Failed to fetch holiday data');
         }
       });
+    }
 
-      $('#requestForm').submit(function (event) {
-        event.preventDefault();
-        var name = $('#requestForm #name').val();
-        var startDate = $('#requestForm #startDate').val();
-        var endDate = $('#requestForm #endDate').val();
+    // Function to populate the holiday table with data
+    function populateHolidayTable(data) {
+      var tbody = $('#holidayTable tbody');
+      tbody.empty();
 
-        if (name && startDate && endDate) {
-          $('#calendar').fullCalendar('renderEvent', {
-            title: name,
-            start: startDate,
-            end: endDate,
-            color: '#000'
-          }, true);
+      data.forEach(function(holiday) {
+        var row = $('<tr></tr>');
+        row.append('<td>' + holiday.start_date + ' - ' + holiday.end_date + '</td>');
+        row.append('<td>' + holiday.notas + '</td>');
+        row.append('<td>' + holiday.status + '</td>');
+        row.append('<td></td>'); // Empty column, you can customize this column as needed
 
-          $('#requestModal').modal('hide');
-          $('#requestForm')[0].reset();
-        }
+// Set background color based on holiday status
+if (holiday.status === 'Approved') {
+      row.css('background-color', '#71c171');
+    } else if (holiday.status === 'Rejected') {
+      row.css('background-color', '#ff4d4d');
+    } else {
+      row.css('background-color', 'lightgray');
+    }
+
+        tbody.append(row);
       });
-    });
+    }
 
+    // Function to handle the logout action
     function logout() {
       // Add your logout logic here
+      console.log('Logout');
     }
+
+    // Attach event listener to the logout button
+    document.getElementById('logoutButton').addEventListener('click', logout);
+
+    // Fetch holiday data when the page loads
+    $(document).ready(function() {
+      fetchHolidayData();
+    });
+
+    // ...
+
+
+
+
+    
   </script>
 </body>
 </html>
