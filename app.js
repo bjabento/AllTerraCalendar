@@ -5,7 +5,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('login');
 });
 
@@ -15,6 +15,7 @@ app.listen(port, () => console.log('Listening on port 3000!'));
 
 app.use(express.json());
 app.use(express.static(__dirname + '/css'));
+app.use(express.static(__dirname + '/js'));
 
 const Sequelize = require('sequelize');
 const moment = require('moment');
@@ -39,17 +40,21 @@ app.use(session({
 }));
 
 const redirectLogin = (req, res, next) => {
-    if(req.session.userID == 0){
+    if (req.session.userID == 0) {
         console.log('Cheguei');
         res.redirect('/')
-    }else{
+    } else {
         next()
     }
 }
 
-app.get('/holidayhistory', redirectLogin, function(req, res) {
+app.get('/holidayhistory', redirectLogin, function (req, res) {
     console.log('Cheguei render');
     res.render('holidayhistory');
+});
+app.get('/markholiday', redirectLogin, function (req, res) {
+    console.log('Cheguei render');
+    res.render('markholiday');
 });
 
 app.post('/loginRequest', (req, res) => {
@@ -85,14 +90,14 @@ app.get('/userHolidays', redirectLogin, (req, res) => {
     const currentPage = parseInt(req.query.page) || 1;
 
     Holiday.findAll({
-        where:{
+        where: {
             id_user: req.session.userID
         },
         order: [
             ['id', 'DESC']
         ],
     }).then(holidays => {
-        res.render('holidayhistory', {moment, holidays:holidays, currentPage: currentPage});
+        res.render('holidayhistory', { moment, holidays: holidays, currentPage: currentPage });
     }).catch(err => console.log(err));
 });
 
@@ -100,13 +105,15 @@ app.get('/userHolidays?:page', redirectLogin, (req, res) => {
     const currentPage = parseInt(req.query.page) || 1;
 
     Holiday.findAll({
-        where:{
+        where: {
             id_user: req.session.userID
         },
         order: [
             ['id', 'DESC']
         ],
     }).then(holidays => {
-        res.render('holidayhistory', {moment, holidays:holidays, currentPage: currentPage});
+        res.render('holidayhistory', { moment, holidays: holidays, currentPage: currentPage });
     }).catch(err => console.log(err));
 });
+
+

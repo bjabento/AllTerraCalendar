@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/pt-br.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="calendar.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <style>
+        /*body {
+            padding-top: 70px;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }*/
+
+        /* Footer Styles */
+    </style>
+
+    <title>Calendário</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/logo.jpeg" width="220" height="40" class="d-inline-block align-top" alt="">
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Utilizador AllTerra
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/markholiday">Marcação de Férias</a>
+                        <a class="dropdown-item" href="/userHolidays">Histórico de Férias</a>
+                        <!--<a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>-->
+                        <a class="dropdown-item" href="/">Logout <i class="fas fa-door-open"></i></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!--<h1>Calendário</h1>-->
+        <div id="calendar"></div>
+    </div>
+
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="requestModalLabel">Solicitar feriado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="requestForm">
+                        <div class="form-group">
+                            <label for="name">Nome do feriado</label>
+                            <input type="text" class="form-control" id="name" placeholder="Digite o nome do feriado"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Data de início</label>
+                            <input type="date" class="form-control" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Data de término</label>
+                            <input type="date" class="form-control" id="endDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar solicitação</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        function logout() {
+            // Add your logout logic here !!!!!! IR AOS COMMITS ANTIGOS
+        }
+    </script>
+</body>
+
+</html>

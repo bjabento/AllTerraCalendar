@@ -1,10 +1,10 @@
-/* Section HolidayHistory Page */
-.navbar {
-  background-color: #262626;
-}
-
 body {
   padding-top: 70px;
+}
+
+/* NavBar */
+.navbar {
+  background-color: #262626;
 }
 
 .navbar-nav .nav-link.dropdown-toggle {
@@ -24,6 +24,22 @@ body {
   margin-right: 5px;
 }
 
+/* End NavBar */
+
+/* Footer */
+footer {
+  background-color: #262626;
+  color: #fff;
+  padding: 40px;
+  text-align: center;
+}
+
+footer p {
+  margin-bottom: 0px;
+}
+/* End Footer */
+
+/* Section HolidayHistory Page */
 tr.Approved {
   background-color: green;
 }
@@ -51,3 +67,109 @@ tr.pending {
 }
 
 /* End Section HolidayHistory Page */
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+form .form-group label {
+  font-weight: bold;
+}
+
+.modal-content {
+  border-radius: 5px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.btn-primary {
+  background-color: #262626;
+  border-color: #262626;
+  color: #fff;
+
+}
+
+.btn-primary:hover {
+  background-color: #444;
+  border-color: #444;
+}
+
+.btn-primary:focus {
+  box-shadow: none;
+}
+
+.fc-toolbar {
+  background-color: #262626;
+  border: none;
+  padding: 10px;
+}
+
+.fc-toolbar h2 {
+  color: #fff;
+  font-size: 25px;
+  margin: 0;
+}
+
+.fc-button {
+  background-color: goldenrod;
+  background: goldenrod;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.fc-button:hover {
+  background-color: goldenrod;
+  color: #000;
+}
+
+.fc-button.active,
+.fc-button.active:hover {
+  background-color: #444;
+  color: goldenrod;
+}
+
+.fc-button-today {
+  font-weight: normal;
+}
+
+.fc-content {
+  background-color: #9ac5a1;
+  color: #262626;
+  font-weight: bold;
+  padding-left: 1%;
+}
+
+.fc-event {
+  background-color: #262626;
+  border-color: #262626;
+  color: #fff;
+}
+
+.fc-event:hover {
+  background-color: #444;
+  border-color: #444;
+}
+
+.fc-today {
+  background-color: #f5f5f5;
+  color: #262626;
+}
