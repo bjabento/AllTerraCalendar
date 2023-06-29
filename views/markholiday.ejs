@@ -66,10 +66,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="requestForm">
+                    <form action="/holidayRequest" method="POST">
                         <div class="form-group">
                             <label for="name">Nome do feriado</label>
-                            <input type="text" class="form-control" id="name" placeholder="Digite o nome do feriado"
+                            <input type="text" class="form-control" id="notes" placeholder="Digite o nome do feriado"
                                 required>
                         </div>
                         <div class="form-group">
@@ -80,7 +80,7 @@
                             <label for="endDate">Data de término</label>
                             <input type="date" class="form-control" id="endDate" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar solicitação</button>
+                        <button onclick="sendRequest()" class="btn btn-primary">Enviar solicitação</button>
                     </form>
                 </div>
             </div>

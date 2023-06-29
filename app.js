@@ -26,6 +26,7 @@ const Holiday = require('./models/Holidays');
 const Feedback = require('./models/Feedback');
 const Admin = require('./models/Admins');*/
 const { Session } = require('inspector');
+const Holidays = require('./models/Holidays');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -116,4 +117,15 @@ app.get('/userHolidays?:page', redirectLogin, (req, res) => {
     }).catch(err => console.log(err));
 });
 
+app.post('/holidayRequest', (req, res) => {
+    const regHday = {
+        notas: req.body.notes,
+        start_date: req.body.startDate,
+        end_date: req.body.endDate,
+        status: "Pendente",
+        id_user: req.session.userID
+    };
 
+    const registHday = new Holidays(regHday);
+    registHday.save().then(result => console.log("Success").catch(err => console.log("Luis Couto")))
+});
