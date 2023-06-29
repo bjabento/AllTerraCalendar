@@ -20,8 +20,8 @@ const Sequelize = require('sequelize');
 const moment = require('moment');
 const db = require('./configs/Database');
 const User = require('./models/Users');
-/*const Report = require('./models/Report');
-const Locals = require('./models/Locals')
+const Holiday = require('./models/Holidays');
+/*const Locals = require('./models/Locals')
 const Feedback = require('./models/Feedback');
 const Admin = require('./models/Admins');*/
 const { Session } = require('inspector');
@@ -38,13 +38,12 @@ app.use(session({
     }
 }));
 
-function redirectLogin(req, res, next) {
-    console.log('Cheguei');
-    //console.log(req.session.userID);
-    if (!req.session) {
-        res.redirect('/');
-    } else {
-        next();
+const redirectLogin = (req, res, next) => {
+    if(req.session.userID == 0){
+        console.log('Cheguei');
+        res.redirect('/')
+    }else{
+        next()
     }
 }
 
@@ -74,10 +73,20 @@ app.post('/loginRequest', (req, res) => {
             }else{
                 req.session.adminType = 1
             }*/
-            res.render('holidayhistory');
+            res.redirect('/userHolidays');
             //res.redirect('/holidayhistory');
         } else {
             res.redirect('/');
         }
     }).catch(err => res.redirect('/'))
+});
+
+app.get('/userHolidays', redirectLogin, (req, res) => {
+    Holiday.findAll({
+        where:{
+            id_user: req.session.userID
+        }
+    }).then(holidays => {
+        res.render('holidayhistory', {moment, holidays:holidays})
+    }).catch(err => console.log(err));
 });

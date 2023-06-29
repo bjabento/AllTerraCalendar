@@ -1,15 +1,15 @@
-	INSERT INTO users (email, password)
+	INSERT INTO users (email, password, nome)
 VALUES
-    ('test@gmail.com', '1234'),
-    ('example@gmail.com', 'abc123'),
-    ('user@example.com', 'password'),
-    ('john.doe@gmail.com', 'test456'),
-    ('jane.smith@gmail.com', 'p@ssw0rd'),
-    ('demo@example.com', 'demo123'),
-    ('admin@admin.com', 'admin123'),
-    ('user1@example.com', 'secret'),
-    ('user2@example.com', '987654'),
-    ('user3@example.com', 'qwerty');
+    ('test@gmail.com', '1234', 'test'),
+    ('example@gmail.com', 'abc123', 'example'),
+    ('user@example.com', 'password', 'user'),
+    ('john.doe@gmail.com', 'test456', 'john doe'),
+    ('jane.smith@gmail.com', 'p@ssw0rd', 'jane smith'),
+    ('demo@example.com', 'demo123', 'demo'),
+    ('admin@admin.com', 'admin123', 'admin'),
+    ('user1@example.com', 'secret', 'user1'),
+    ('user2@example.com', '987654', 'user2'),
+    ('user3@example.com', 'qwerty', 'user3');
 
 	-- Insert mock data into the 'holidays' table
 INSERT INTO holidays (notas, start_date, end_date, status, id_user)

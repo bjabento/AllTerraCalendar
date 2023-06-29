@@ -40,11 +40,17 @@
           <th>Datas</th>
           <th>Notas</th>
           <th>Estado do Pedido</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
-        <%  %>
+        <% for (let i = 0; i < holidays.length; i++) { %>
+        <tr id="row<%= holidays[i].id %>">
+          <td><%= moment(holidays[i].dataValues.start_date).format('DD-MM-YYYY') %> / <%= moment(holidays[i].dataValues.end_date).format('DD-MM-YYYY') %></td>
+          <td><%= holidays[i].dataValues.notas %></td>
+          <td><%= holidays[i].dataValues.status %></td>
+          <!--<td><%= holidays[i].dataValues.id_user %></td>-->
+        </tr>
+        <% } %>
       </tbody>
     </table>
   </div>

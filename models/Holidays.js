@@ -30,5 +30,6 @@ const Holidays = db.define('holidays', {
 }, {
     timestamps: false,
     tableName: 'holidays' // Specify the table name if it's different from the model name
-
 })
+
+module.exports = Holidays;
