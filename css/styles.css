@@ -1,71 +1,38 @@
-/* Section Login Page */
-body {
+/* Section HolidayHistory Page */
+.navbar {
+    background-color: #262626;
+  }
+  body {
     padding-top: 70px;
-    background-color: #000;
-    color: #f8f9fa;
-    background-color: #000;
   }
 
-  .navbar {
-    background-color: #262626;
+  .navbar-nav .nav-link.dropdown-toggle {
+    color: white;
   }
 
-  .card {
-    background-color: #000;
-    border-color: #b0923e;
-    border-top: 3px solid #b0923e;
-    border-left: 3px solid #b0923e;
-    border-right: 3px solid #b0923e;
-    border-bottom: 3px solid #b0923e;
+  .logout-button {
+    color: white;
+    padding: 0.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
   }
 
-  .card-header {
-    background-color: #000;
-    color: #f8f9fa;
-    border-bottom: 3px solid #cda854;
+  .logout-button i {
+    margin-right: 5px;
   }
 
-  label {
-    color: #f8f9fa;
+
+  tr.Approved {
+    background-color: green;
   }
 
-  .form-control {
-    background-color: #262626;
-    border-color: #b0923e;
-    color: #fff;
+  tr.rejected {
+    background-color: red;
   }
 
-  .form-control:focus {
-    background-color: #262626;
-    border-color: #cda854;
-    color: #fff;
-    box-shadow: none;
+  tr.pending {
+    background-color: lightgray;
   }
-
-  .btn-primary {
-    background-color: #cda854;
-    border-color: #cda854;
-    color: #000;
-  }
-
-  .btn-primary:hover {
-    background-color: #b0923e;
-    border-color: #b0923e;
-  }
-
-  /* Background Image */
-  body::after {
-    content: "";
-    display: block;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 400px;
-    height: 400px;
-    background-image: url('bigimage.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    opacity: 1;
-    z-index: -1;
-  }
-  /* End Section Login Page*/
+/* End Section HolidayHistory Page */
