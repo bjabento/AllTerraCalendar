@@ -1,38 +1,53 @@
 /* Section HolidayHistory Page */
 .navbar {
-    background-color: #262626;
-  }
-  body {
-    padding-top: 70px;
-  }
+  background-color: #262626;
+}
 
-  .navbar-nav .nav-link.dropdown-toggle {
-    color: white;
-  }
+body {
+  padding-top: 70px;
+}
 
-  .logout-button {
-    color: white;
-    padding: 0.25rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
-  }
+.navbar-nav .nav-link.dropdown-toggle {
+  color: white;
+}
 
-  .logout-button i {
-    margin-right: 5px;
-  }
+.logout-button {
+  color: white;
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
 
+.logout-button i {
+  margin-right: 5px;
+}
 
-  tr.Approved {
-    background-color: green;
-  }
+tr.Approved {
+  background-color: green;
+}
 
-  tr.rejected {
-    background-color: red;
-  }
+tr.rejected {
+  background-color: red;
+}
 
-  tr.pending {
-    background-color: lightgray;
-  }
+tr.pending {
+  background-color: lightgray;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination-link {
+  margin-right: 10px;
+}
+
+.pagination-link-next {
+  margin-left: auto;
+}
+
 /* End Section HolidayHistory Page */

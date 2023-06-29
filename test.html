@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Holiday History</title>
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Histórico de Férias</h2>
+    <table id="holidayTable" class="table">
+      <thead>
+        <tr>
+          <th>Datas</th>
+          <th>Notas</th>
+          <th>Estado do Pedido</th>
+        </tr>
+      </thead>
+      <tbody id="holidayTableBody">
+        <!-- Table rows will be dynamically generated here -->
+      </tbody>
+    </table>
+    <nav aria-label="Pagination">
+      <ul class="pagination justify-content-center" id="pagination">
+        <!-- Pagination links will be dynamically generated here -->
+      </ul>
+    </nav>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Mock data
+    const holidays = [
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'DOTACOTA' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'COTADOTA' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' },
+      { start_date: '2023-06-25', end_date: '2023-06-30', notas: 'Vacation', status: 'Pending' },
+      { start_date: '2023-07-10', end_date: '2023-07-15', notas: 'Holiday Trip', status: 'Approved' },
+      { start_date: '2023-08-05', end_date: '2023-08-15', notas: 'Family Vacation', status: 'Pending' },
+      { start_date: '2023-08-20', end_date: '2023-08-31', notas: 'Summer Break', status: 'Rejected' },
+      { start_date: '2023-09-08', end_date: '2023-09-10', notas: 'Weekend Getaway', status: 'Approved' }
+      // Add more holiday objects as needed
+    ];
+
+    // Function to generate table rows
+    function generateTableRows(startIdx, endIdx) {
+      let tableRows = '';
+      for (let i = startIdx; i < endIdx && i < holidays.length; i++) {
+        const holiday = holidays[i];
+        const row = `
+          <tr>
+            <td>${holiday.start_date} / ${holiday.end_date}</td>
+            <td>${holiday.notas}</td>   
+            <td>${holiday.status}</td>
+          </tr>
+        `;
+        tableRows += row;
+      }
+      return tableRows;
+    }
+
+    // Function to update table with pagination
+    function updateTable(page) {
+      const itemsPerPage = 10;
+      const startIdx = (page - 1) * itemsPerPage;
+      const endIdx = startIdx + itemsPerPage;
+
+      const tableBody = document.getElementById('holidayTableBody');
+      tableBody.innerHTML = generateTableRows(startIdx, endIdx);
+
+      const pagination = document.getElementById('pagination');
+      let paginationLinks = '';
+      const totalPages = Math.ceil(holidays.length / itemsPerPage);
+      for (let i = 1; i <= totalPages; i++) {
+        const link = `
+          <li class="page-item ${page === i ? 'active' : ''}">
+            <a class="page-link" href="#" onclick="updateTable(${i})">${i}</a>
+          </li>
+        `;
+        paginationLinks += link;
+      }
+      pagination.innerHTML = paginationLinks;
+    }
+
+    // Initial table update
+    updateTable(1);
+  </script>
+</body>
+</html>

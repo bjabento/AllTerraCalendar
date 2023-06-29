@@ -82,11 +82,31 @@ app.post('/loginRequest', (req, res) => {
 });
 
 app.get('/userHolidays', redirectLogin, (req, res) => {
+    const currentPage = parseInt(req.query.page) || 1;
+
     Holiday.findAll({
         where:{
             id_user: req.session.userID
-        }
+        },
+        order: [
+            ['id', 'DESC']
+        ],
     }).then(holidays => {
-        res.render('holidayhistory', {moment, holidays:holidays})
+        res.render('holidayhistory', {moment, holidays:holidays, currentPage: currentPage});
+    }).catch(err => console.log(err));
+});
+
+app.get('/userHolidays?:page', redirectLogin, (req, res) => {
+    const currentPage = parseInt(req.query.page) || 1;
+
+    Holiday.findAll({
+        where:{
+            id_user: req.session.userID
+        },
+        order: [
+            ['id', 'DESC']
+        ],
+    }).then(holidays => {
+        res.render('holidayhistory', {moment, holidays:holidays, currentPage: currentPage});
     }).catch(err => console.log(err));
 });

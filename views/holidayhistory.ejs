@@ -43,77 +43,28 @@
         </tr>
       </thead>
       <tbody>
-        <% for (let i = 0; i < holidays.length; i++) { %>
-        <tr id="row<%= holidays[i].id %>">
-          <td><%= moment(holidays[i].dataValues.start_date).format('DD-MM-YYYY') %> / <%= moment(holidays[i].dataValues.end_date).format('DD-MM-YYYY') %></td>
-          <td><%= holidays[i].dataValues.notas %></td>
-          <td><%= holidays[i].dataValues.status %></td>
-          <!--<td><%= holidays[i].dataValues.id_user %></td>-->
-        </tr>
+        <% var itemsPerPage = 10; %>
+        <% var startIdx = (currentPage - 1) * itemsPerPage; %>
+        <% var endIdx = startIdx + itemsPerPage; %>
+        <% for (let i = startIdx; i < endIdx && i < holidays.length; i++) { %>
+          <tr id="row<%= holidays[i].id %>">
+            <td><%= moment(holidays[i].dataValues.start_date).format('DD-MM-YYYY') %> / <%= moment(holidays[i].dataValues.end_date).format('DD-MM-YYYY') %></td>
+            <td><%= holidays[i].dataValues.notas %></td>
+            <td><%= holidays[i].dataValues.status %></td>
+          </tr>
         <% } %>
       </tbody>
     </table>
+  
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a class="pagination-link" href="userHolidays?page=<%= currentPage - 1 %>">&laquo; Previous</a>
+      <% } %>
+  
+      <% if (endIdx < holidays.length) { %>
+        <a class="pagination-link pagination-link-next" href="userHolidays?page=<%= currentPage + 1 %>">Next &raquo;</a>
+      <% } %>
+    </div>
   </div>
-
-  <script>
-
-    /*function requireLogin(req, res, next) {
-      if (req.session.userId) {
-        next();
-      } else {
-        res.redirect('/index');
-      } 
-    }
-
-    app.get('/public', requireLogin, (req,res) => {
-      res.render('public');
-    });*/
-
-    // Fetch holiday data when the page loads
-    /*$(document).ready(function() {
-      fetchHolidayData();
-    });
-
-    // Function to fetch holiday data from the server
-    
-    function fetchHolidayData() {
-      const userId = 0;
-      $.ajax({
-        //url: '/api/holidays', // Replace with the appropriate API endpoint
-        url: '/api/holidaysUser?userId=${userId}', // Replace with the appropriate API endpoint
-        method: 'GET',
-        success: function(data) {
-          populateHolidayTable(data);
-        },
-        error: function() {
-          console.error('Failed to fetch holiday data');
-        }
-      });
-    }
-
-    // Function to populate the holiday table with data
-    function populateHolidayTable(data) {
-      var tbody = $('#holidayTable tbody');
-      tbody.empty();
-
-      data.forEach(function(holiday) {
-        var row = $('<tr></tr>');
-        row.append('<td>' + holiday.start_date + ' - ' + holiday.end_date + '</td>');
-        row.append('<td>' + holiday.notas + '</td>');
-        row.append('<td>' + holiday.status + '</td>');
-        row.append('<td></td>'); // Empty column, you can customize this column as needed
-
-        // Set background color based on holiday status
-        if (holiday.status === 'Approved') {
-          row.css('background-color', '#71c171');
-        } else if (holiday.status === 'Rejected') {
-          row.css('background-color', '#ff4d4d');
-        } else {
-          row.css('background-color', 'lightgray');
-        }
-        tbody.append(row);
-      });
-    }*/
-  </script>
 </body>
 </html>
