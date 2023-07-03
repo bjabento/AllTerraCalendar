@@ -58,11 +58,11 @@
   
     <div class="pagination">
       <% if (currentPage > 1) { %>
-        <a class="pagination-link" href="userHolidays?page=<%= currentPage - 1 %>">&laquo; Previous</a>
+        <a class="btn btn-default" href="userHolidays?page=<%= currentPage - 1 %>">&laquo; Previous</a>
       <% } %>
   
       <% if (endIdx < holidays.length) { %>
-        <a class="pagination-link pagination-link-next" href="userHolidays?page=<%= currentPage + 1 %>">Next &raquo;</a>
+        <a class="btn btn-default-next" href="userHolidays?page=<%= currentPage + 1 %>">Next &raquo;</a>
       <% } %>
     </div>
   </div>

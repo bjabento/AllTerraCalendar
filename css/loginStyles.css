@@ -66,16 +66,17 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 1;
-    z-index: -1;
+    z-index: 1;
   }
 
   /* Additional container with navbar background color */
     .additional-container {
       background-color: #000;
-      max-width: 850px;
+      max-width: 1000px;
       margin: 50px auto;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 2;
     }
   /* End Section Login Page*/

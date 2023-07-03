@@ -60,7 +60,21 @@ tr.pending {
 
 .pagination-link {
   margin-right: 10px;
-}
+  color: black;
+  }
+
+  .btn-default-next{
+    background-color: #cda854;
+    border-color: #000;
+    color: #000;
+    margin-left: auto;
+  }
+
+  .btn-default {
+    background-color: #cda854;
+    border-color: #000;
+    color: #000;
+  }
 
 .pagination-link-next {
   margin-left: auto;
