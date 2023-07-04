@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+        }
+
+        .alert {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .ticket-list {
+            margin-top: 40px;
+        }
+
+        .ticket {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .ticket .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ticket .ticket-header .ticket-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .ticket .ticket-header .ticket-status {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .ticket .ticket-header .ticket-date {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .ticket .ticket-body {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .ticket .ticket-footer {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Ticket Submission System</h1>
+        <button type="button" class="btn btn-primary" id="showFormBtn">Open Ticket Submission Form</button>
+
+        <div id="ticketFormContainer" style="display: none;">
+            <h2>Ticket Submission Form</h2>
+            <form id="ticketForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="visibility">Visibility:</label>
+                    <select class="form-control" id="visibility" name="visibility">
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-submit">Submit Ticket</button>
+            </form>
+        </div>
+
+        <div class="ticket-list">
+            <h2>Previous Tickets</h2>
+            <div id="ticketsContainer"></div>
+        </div>
+        <div class="alert alert-success" id="successMessage" style="display: none;">
+            Ticket submitted successfully!
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show/hide ticket form
+            $('#showFormBtn').click(function () {
+                $('#ticketFormContainer').slideToggle();
+            });
+
+            // Submit ticket form
+            $('#ticketForm').submit(function (e) {
+                e.preventDefault();
+
+                // Get form data
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var message = $('#message').val();
+                var visibility = $('#visibility').val();
+
+                // Prepare email body
+                var body = "Name: " + name + "\n";
+                body += "Email: " + email + "\n";
+                body += "Visibility: " + visibility + "\n\n";
+                body += "Message:\n" + message;
+
+                // Send email
+                var subject = "New Ticket Submission";
+                var mailtoLink = "mailto:your-email@example.com?subject=" + encodeURIComponent(subject) +
+                    "&body=" + encodeURIComponent(body);
+                window.location.href = mailtoLink;
+
+                // Show success message
+                $('#successMessage').fadeIn();
+                $('#ticketForm').trigger('reset');
+            });
+
+            // Load previous tickets
+            var tickets = [
+                {
+                    title: "Ticket 1",
+                    status: "Public",
+                    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    timestamp: "2023-07-04 10:30:00"
+                },
+                {
+                    title: "Ticket 2",
+                    status: "Private",
+                    message: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    timestamp: "2023-07-03 15:45:00"
+                }
+            ];
+
+            var ticketsContainer = $('#ticketsContainer');
+            for (var i = 0; i < tickets.length; i++) {
+                var ticket = tickets[i];
+
+                if (ticket.status.toLowerCase() === 'private') {
+                    continue; // Skip private tickets
+                }
+
+                var ticketHtml = '<div class="ticket">';
+                ticketHtml += '<div class="ticket-header">';
+                ticketHtml += '<span class="ticket-title">' + ticket.title + '</span>';
+                ticketHtml += '<span class="ticket-status">' + ticket.status + '</span>';
+                ticketHtml += '<span class="ticket-date">' + ticket.timestamp + '</span>';
+                ticketHtml += '</div>';
+                ticketHtml += '<div class="ticket-body">' + ticket.message + '</div>';
+                ticketHtml += '</div>';
+
+                ticketsContainer.append(ticketHtml);
+            }
+        });
+    </script>
+</body>
+
+</html>
