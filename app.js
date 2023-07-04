@@ -30,7 +30,6 @@ const Holiday = require('./models/Holidays');
 const Feedback = require('./models/Feedback');
 const Admin = require('./models/Admins');*/
 const { Session } = require('inspector');
-const Holidays = require('./models/Holidays');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,7 +44,9 @@ app.use(session({
 }));
 
 const redirectLogin = (req, res, next) => {
-    if (req.session.userID == 0) {
+    //console.log('Cheguei');
+    //console.log(req.session.userID);
+    if (!req.session.userID) {
         //console.log('Cheguei');
         res.redirect('/login')
     } else {
@@ -134,6 +135,6 @@ app.post('/holidayRequest', (req, res) => {
         id_user: req.session.userID
     };
 
-    const registHday = new Holidays(regHday);
+    const registHday = new Holiday(regHday);
     registHday.save().then(result => console.log("Success").catch(err => console.log("Luis Couto")))
 });
