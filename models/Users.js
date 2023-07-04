@@ -18,6 +18,10 @@ const Users = db.define('users', {
     nome: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    tipo: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 }, {
     timestamps: false,

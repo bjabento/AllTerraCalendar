@@ -46,20 +46,24 @@ app.use(session({
 
 const redirectLogin = (req, res, next) => {
     if (req.session.userID == 0) {
-        console.log('Cheguei');
-        res.redirect('/')
+        //console.log('Cheguei');
+        res.redirect('/login')
     } else {
         next()
     }
 }
 
 app.get('/holidayhistory', redirectLogin, function (req, res) {
-    console.log('Cheguei render');
+    //console.log('Cheguei render');
     res.render('holidayhistory');
 });
 app.get('/markholiday', redirectLogin, function (req, res) {
-    console.log('Cheguei render');
+    //onsole.log('Cheguei render');
     res.render('markholiday');
+});
+app.get('/index', redirectLogin, function (req, res) {
+    //console.log('Cheguei render');
+    res.render('index');
 });
 
 app.post('/loginRequest', (req, res) => {
@@ -83,12 +87,12 @@ app.post('/loginRequest', (req, res) => {
             }else{
                 req.session.adminType = 1
             }*/
-            res.redirect('/userHolidays');
+            res.redirect('/index');
             //res.redirect('/holidayhistory');
         } else {
-            res.redirect('/');
+            res.redirect('/login');
         }
-    }).catch(err => res.redirect('/'))
+    }).catch(err => res.redirect('/login'))
 });
 
 app.get('/userHolidays', redirectLogin, (req, res) => {

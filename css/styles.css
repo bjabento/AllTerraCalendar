@@ -40,6 +40,13 @@ footer p {
 /* End Footer */
 
 /* Section HolidayHistory Page */
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+
 tr.Approved {
   background-color: green;
 }
