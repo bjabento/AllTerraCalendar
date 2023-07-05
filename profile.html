@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>User Profile</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="profile_picture.jpg" width="30" height="30" class="d-inline-block align-top" alt="Profile Picture">
+    </a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Edit</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>User Profile</h2>
+        <form>
+          <div class="text-center mb-3">
+            <img src="profile_picture.jpg" id="profileImage" class="rounded-circle" width="120" height="120">
+          </div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" value="John Doe" disabled>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" value="johndoe@example.com" disabled>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" value="********" disabled>
+          </div>
+          <div class="form-group">
+            <label for="image">Profile Picture</label>
+            <input type="file" class="form-control-file" id="image" disabled>
+          </div>
+          <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+          <button type="submit" class="btn btn-success" id="saveBtn" style="display: none;">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var profilePicture = "profile_picture.jpg"; // Default profile picture URL
+      
+      $('#editBtn').click(function() {
+        $('input').prop('disabled', false);
+        $('#editBtn').hide();
+        $('#saveBtn').show();
+      });
+      
+      $('#image').change(function() {
+        readURL(this);
+      });
+      
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+            profilePicture = e.target.result; // Store the data URL
+            $('#profileImage').attr('src', profilePicture);
+          }
+          
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      
+      $('#saveBtn').click(function(e) {
+        e.preventDefault();
+        $('input').prop('disabled', true);
+        $('#editBtn').show();
+        $('#saveBtn').hide();
+        
+        // Perform saving logic here
+        
+        // Reset the profile image to the default if necessary
+        $('#profileImage').attr('src', profilePicture);
+      });
+    });
+  </script>
+</body>
+</html>

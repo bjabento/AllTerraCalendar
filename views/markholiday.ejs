@@ -4,25 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta(http-equiv='Cache-Control', content='no-store, no-cache, must-revalidate' )>
+    <meta(http-equiv='Pragma', content='no-cache' )>
+    <meta(http-equiv='Expires', content='-1' )>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/pt-br.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="calendar.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
     <link rel="stylesheet" href="styles.css" type="text/css">
-    <style>
-        /*body {
-            padding-top: 70px;
-            background-color: #f5f5f5;
-            font-family: Arial, sans-serif;
-        }*/
-
-        /* Footer Styles */
-    </style>
 
     <title>Calendário</title>
 </head>
@@ -43,7 +39,7 @@
                         <a class="dropdown-item" href="/markholiday">Marcação de Férias</a>
                         <a class="dropdown-item" href="/userHolidays">Histórico de Férias</a>
                         <!--<a type="submit" class="dropdown-item" id="logoutButton" href="logout">Logout <i class="fas fa-door-open"></i></a>-->
-                        <a class="dropdown-item" href="/">Logout <i class="fas fa-door-open"></i></a>
+                        <a class="dropdown-item" href="/logout">Logout <i class="fas fa-door-open"></i></a>
                     </div>
                 </li>
             </ul>
@@ -69,16 +65,16 @@
                     <form action="/holidayRequest" method="POST">
                         <div class="form-group">
                             <label for="name">Nome do feriado</label>
-                            <input type="text" class="form-control" id="notes" placeholder="Digite o nome do feriado"
-                                required>
+                            <input type="text" class="form-control" id="notes" name="notes"
+                                placeholder="Digite o nome do feriado" required>
                         </div>
                         <div class="form-group">
                             <label for="startDate">Data de início</label>
-                            <input type="date" class="form-control" id="startDate" required>
+                            <input type="date" class="form-control" id="startDate" name="startDate" required>
                         </div>
                         <div class="form-group">
                             <label for="endDate">Data de término</label>
-                            <input type="date" class="form-control" id="endDate" required>
+                            <input type="date" class="form-control" id="endDate" name="endDate" required>
                         </div>
                         <button onclick="sendRequest()" class="btn btn-primary">Enviar solicitação</button>
                     </form>
@@ -90,13 +86,6 @@
     <footer>
         <p>© 2023 All rights reserved.</p>
     </footer>
-
-
-    <script>
-        function logout() {
-            // Add your logout logic here !!!!!! IR AOS COMMITS ANTIGOS
-        }
-    </script>
 </body>
 
 </html>

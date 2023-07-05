@@ -35,8 +35,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     secret: "secret",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     userID: 0,
     cookie: {
         expires: new Date(Date.now() + 3600000)
@@ -44,9 +44,9 @@ app.use(session({
 }));
 
 const redirectLogin = (req, res, next) => {
-    //console.log('Cheguei');
-    //console.log(req.session.userID);
-    if (!req.session.userID) {
+    console.log('Cheguei');
+    console.log(req.session.userID);
+    if (req.session.userID == undefined || req.session.userID == 0) {
         //console.log('Cheguei');
         res.redirect('/login')
     } else {
@@ -54,11 +54,18 @@ const redirectLogin = (req, res, next) => {
     }
 }
 
-app.get('/holidayhistory', redirectLogin, function (req, res) {
+function nocache(req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next();
+}
+
+app.get('/holidayhistory', redirectLogin, nocache, function (req, res) {
     //console.log('Cheguei render');
     res.render('holidayhistory');
 });
-app.get('/markholiday', redirectLogin, function (req, res) {
+app.get('/markholiday', redirectLogin, nocache, function (req, res) {
     //onsole.log('Cheguei render');
     res.render('markholiday');
 });
@@ -136,5 +143,20 @@ app.post('/holidayRequest', (req, res) => {
     };
 
     const registHday = new Holiday(regHday);
-    registHday.save().then(result => console.log("Success").catch(err => console.log("Luis Couto")))
+    registHday.save().then(result => console.log("Success")).catch(err => console.log("Luis Couto"))
 });
+
+// Handle logout
+app.get('/logout', (req, res) => {
+    // Clear session data
+    req.session.destroy((error) => {
+      if (error) {
+        console.error('Error destroying session:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      } else {
+        console.log('Cheguei');
+        //res.sendStatus(200);
+        res.redirect('/');
+      }
+    });
+  });
