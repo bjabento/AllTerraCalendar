@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Bug</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .file-names {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .file-icon {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Bug Reporting System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Report Bug</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 class="mt-4">Report Bug</h2>
+
+    <form method="post" action="/report-bug" class="mt-4" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="bug">Bug Description:</label>
+        <textarea class="form-control" id="bug" name="bug" rows="5" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="files">File Upload:</label>
+        <input type="file" class="form-control-file" id="files" name="files" multiple>
+      </div>
+
+      <div id="file-names" class="file-names"></div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Display selected file names
+    document.getElementById('files').addEventListener('change', function(event) {
+      const fileNamesContainer = document.getElementById('file-names');
+      const files = event.target.files;
+
+      fileNamesContainer.innerHTML = '';
+
+      Array.from(files).forEach(file => {
+        const fileNameContainer = document.createElement('div');
+        const fileIcon = document.createElement('i');
+        const fileName = document.createElement('span');
+
+        fileIcon.classList.add('fas', 'fa-file', 'file-icon');
+        fileName.textContent = file.name;
+
+        fileNameContainer.appendChild(fileIcon);
+        fileNameContainer.appendChild(fileName);
+        fileNamesContainer.appendChild(fileNameContainer);
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+ <!--
+const express = require('express');
+const multer = require('multer');
+const nodemailer = require('nodemailer');
+const archiver = require('archiver');
+const app = express();
+
+// Configure multer for file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Serve the HTML form
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+// Handle form submission
+app.post('/report-bug', upload.array('files'), (req, res) => {
+  const { name, email, bug } = req.body;
+  const files = req.files;
+
+  // Create a transporter for sending emails
+  const transporter = nodemailer.createTransport({
+    service: 'YourEmailService', // Replace with your email service (e.g., Gmail)
+    auth: {
+      user: 'your-email@example.com', // Replace with your email address
+      pass: 'your-password', // Replace with your email password
+    },
+  });
+
+  // Create a ZIP archive
+  const archive = archiver('zip');
+
+  // Add the uploaded files to the archive
+  files.forEach(file => {
+    archive.append(file.buffer, { name: file.originalname });
+  });
+
+  // Finalize the archive
+  archive.finalize();
+
+  // Configure the email message
+  const mailOptions = {
+    from: email,
+    to: 'your-email@example.com', // Replace with your email address
+    subject: 'Bug Report',
+    text: `Name: ${name}\n\nEmail: ${email}\n\nBug Description:\n${bug}`,
+    attachments: [
+      {
+        filename: 'bug_report.zip',
+        content: archive,
+      },
+    ],
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('Oops! Something went wrong. Please try again later.');
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.send('Thank you for reporting the bug!');
+    }
+  });
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+
+
+
+
+ -->

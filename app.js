@@ -71,7 +71,7 @@ app.get('/markholiday', redirectLogin, nocache, function (req, res) {
 });
 app.get('/index', redirectLogin, function (req, res) {
     //console.log('Cheguei render');
-    res.render('index');
+    res.render('index', {session: req.session});
 });
 
 app.post('/loginRequest', (req, res) => {
@@ -89,7 +89,12 @@ app.post('/loginRequest', (req, res) => {
         if (user.length == 1 && user[0].dataValues.password.trim() == lPass.trim()) {
 
             req.session.userID = user[0].dataValues.id;
+            req.session.userName = user[0].dataValues.nome;
+            req.session.userType = user[0].dataValues.tipo;
             console.log(req.session.userID);
+            console.log(req.session.userName);
+            console.log(req.session.userType);
+            //console.log(req.session.userID);
             /*if(user[0].dataValues.tipo == 0){
                 req.session.adminType = 0
             }else{
