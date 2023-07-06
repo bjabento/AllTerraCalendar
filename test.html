@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -22,135 +23,129 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>User Profile</title>
 </head>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    
-    .navbar {
-      background-color: #333;
-      color: #fff;
-      padding: 10px;
-    }
-    
-    .container {
-      display: flex;
-      height: 87.5vh; /* Adjust this value to control the container height */
-    }
-    
-    .container div {
-      flex: 1;
-      padding: 10px;
-    }
-  </style>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+
+  .container {
+    display: flex;
+    height: 87.5vh;
+    /* Adjust this value to control the container height */
+  }
+
+  .container div {
+    flex: 1;
+    padding: 10px;
+  }
+</style>
 </head>
+
 <body>
   <div class="navbar">
     <h1>Navbar</h1>
   </div>
-  
+
   <div class="container">
     <div>
       <div class="container mt-4">
         <div class="row">
-          
-            <h2>User Profile</h2>
-            <form>
-              <div class="text-center mb-3">
-                <img src="profile_picture.jpg" id="profileImage" class="rounded-circle" width="120" height="120">
-              </div>
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" value="John Doe" disabled>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" value="johndoe@example.com" disabled>
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" value="********" disabled>
-              </div>
-              <div class="form-group">
-                <label for="image">Profile Picture</label>
-                <input type="file" class="form-control-file" id="image" disabled>
-              </div>
-              <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
-              <button type="submit" class="btn btn-success" id="saveBtn" style="display: none;">Save</button>
-            </form>
-          </div>
-        
+
+          <h2>User Profile</h2>
+          <form>
+            <div class="text-center mb-3">
+              <img src="profile_picture.jpg" id="profileImage" class="rounded-circle" width="120" height="120">
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" value="John Doe" disabled>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" value="johndoe@example.com" disabled>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" value="********" disabled>
+            </div>
+            <div class="form-group">
+              <label for="image">Profile Picture</label>
+              <input type="file" class="form-control-file" id="image" disabled>
+            </div>
+            <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+            <button type="submit" class="btn btn-success" id="saveBtn" style="display: none;">Save</button>
+          </form>
+        </div>
+
       </div>
       <!-- Add your elements here -->
     </div>
     <div>
       <h2>Histórico de Férias</h2>
-    <table id="holidayTable" class="table">
-      <thead>
-        <tr>
-          <th>Período de Férias</th>
-          <th>Notas</th>
-          <th>Estado do Pedido</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% var itemsPerPage = 10; %>
-        <% var startIdx = (currentPage - 1) * itemsPerPage; %>
-        <% var endIdx = startIdx + itemsPerPage; %>
-        <% for (let i = startIdx; i < endIdx && i < holidays.length; i++) { %>
-          <tr id="row<%= holidays[i].id %>">
-            <td><%= moment(holidays[i].dataValues.start_date).format('DD-MM-YYYY') %> / <%= moment(holidays[i].dataValues.end_date).format('DD-MM-YYYY') %></td>
-            <td><%= holidays[i].dataValues.notas %></td>
-            <td><%= holidays[i].dataValues.status %></td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
+
+      <div class="container mt-5">
+        <table id="holidayTable" class="table">
+          <thead>
+            <tr>
+              <th>Periodo de Férias</th>
+              <th>Notas</th>
+              <th>Estado do Pedido</th>
+            </tr>
+          </thead>
+          <tbody>
+      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       var profilePicture = "profile_picture.jpg"; // Default profile picture URL
-      
-      $('#editBtn').click(function() {
+
+      $('#editBtn').click(function () {
         $('input').prop('disabled', false);
         $('#editBtn').hide();
         $('#saveBtn').show();
       });
-      
-      $('#image').change(function() {
+
+      $('#image').change(function () {
         readURL(this);
       });
-      
+
       function readURL(input) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
-          
-          reader.onload = function(e) {
+
+          reader.onload = function (e) {
             profilePicture = e.target.result; // Store the data URL
             $('#profileImage').attr('src', profilePicture);
           }
-          
+
           reader.readAsDataURL(input.files[0]);
         }
       }
-      
-      $('#saveBtn').click(function(e) {
+
+      $('#saveBtn').click(function (e) {
         e.preventDefault();
         $('input').prop('disabled', true);
         $('#editBtn').show();
         $('#saveBtn').hide();
-        
+
         // Perform saving logic here
-        
+
         // Reset the profile image to the default if necessary
         $('#profileImage').attr('src', profilePicture);
       });
     });
   </script>
 </body>
+
 </html>
