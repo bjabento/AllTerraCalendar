@@ -1,126 +1,156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>AllTerra</title>
-    <link rel="stylesheet" href="homepage.css">
-    <meta charset="utf8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/css/styles.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/pt-br.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/js/calendar.js"></script>
 
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .image-container img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .image-overlay {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 1;
-        }
-
-        #loginSection {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            display: none;
-            opacity: 1;
-            transition: opacity 0.5s;
-        }
-
-        .submit-btn {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>User Profile</title>
 </head>
-
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+    }
+    
+    .container {
+      display: flex;
+      height: 87.5vh; /* Adjust this value to control the container height */
+    }
+    
+    .container div {
+      flex: 1;
+      padding: 10px;
+    }
+  </style>
+</head>
 <body>
-
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <a class="navbar-brand" href="/index">
-            <img src="images/logo.jpeg" width="220" height="40" class="d-inline-block align-top" alt="">
-        </a>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <!-- Navigation items -->
-            </ul>
-        </div>
-    </nav>
-
-    <div class="image-container">
-        <img src="images/hpskyline.jpg" alt="Image" onclick="showLoginForm()"/>
-        <div class="image-overlay" id="welcomemsg">
-            <p>Welcome to AllTerra</p>
-        </div>
+  <div class="navbar">
+    <h1>Navbar</h1>
+  </div>
+  
+  <div class="container">
+    <div>
+      <div class="container mt-4">
+        <div class="row">
+          
+            <h2>User Profile</h2>
+            <form>
+              <div class="text-center mb-3">
+                <img src="profile_picture.jpg" id="profileImage" class="rounded-circle" width="120" height="120">
+              </div>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" value="John Doe" disabled>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" value="johndoe@example.com" disabled>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" value="********" disabled>
+              </div>
+              <div class="form-group">
+                <label for="image">Profile Picture</label>
+                <input type="file" class="form-control-file" id="image" disabled>
+              </div>
+              <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+              <button type="submit" class="btn btn-success" id="saveBtn" style="display: none;">Save</button>
+            </form>
+          </div>
+        
+      </div>
+      <!-- Add your elements here -->
     </div>
-
-    <section class="ftco-section" id="loginSection">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="login-wrap p-4 p-md-5">
-                            <form action="/loginRequest" method="POST" class="signin-form">
-                                <div class="form-group mb-3">
-                                    <label class="label" for="name">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Email" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Password" required>
-                                </div>
-                                <div class="form-group submit-btn">
-                                    <button type="submit" onclick="sendLogin()"
-                                        class="form-control btn btn-primary rounded submit px-3">Sign
-                                        In</button>
-                                </div>
-                            </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="bottom-text">
-        <p>© 2023 All rights reserved</p>
+    <div>
+      <h2>Histórico de Férias</h2>
+    <table id="holidayTable" class="table">
+      <thead>
+        <tr>
+          <th>Período de Férias</th>
+          <th>Notas</th>
+          <th>Estado do Pedido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% var itemsPerPage = 10; %>
+        <% var startIdx = (currentPage - 1) * itemsPerPage; %>
+        <% var endIdx = startIdx + itemsPerPage; %>
+        <% for (let i = startIdx; i < endIdx && i < holidays.length; i++) { %>
+          <tr id="row<%= holidays[i].id %>">
+            <td><%= moment(holidays[i].dataValues.start_date).format('DD-MM-YYYY') %> / <%= moment(holidays[i].dataValues.end_date).format('DD-MM-YYYY') %></td>
+            <td><%= holidays[i].dataValues.notas %></td>
+            <td><%= holidays[i].dataValues.status %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script>
-        function showLoginForm() {
-            var loginSection = document.getElementById('loginSection');
-            loginSection.style.display = "flex";
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var profilePicture = "profile_picture.jpg"; // Default profile picture URL
+      
+      $('#editBtn').click(function() {
+        $('input').prop('disabled', false);
+        $('#editBtn').hide();
+        $('#saveBtn').show();
+      });
+      
+      $('#image').change(function() {
+        readURL(this);
+      });
+      
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+            profilePicture = e.target.result; // Store the data URL
+            $('#profileImage').attr('src', profilePicture);
+          }
+          
+          reader.readAsDataURL(input.files[0]);
         }
-    </script>
+      }
+      
+      $('#saveBtn').click(function(e) {
+        e.preventDefault();
+        $('input').prop('disabled', true);
+        $('#editBtn').show();
+        $('#saveBtn').hide();
+        
+        // Perform saving logic here
+        
+        // Reset the profile image to the default if necessary
+        $('#profileImage').attr('src', profilePicture);
+      });
+    });
+  </script>
 </body>
-
 </html>
