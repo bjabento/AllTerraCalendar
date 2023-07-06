@@ -9,11 +9,6 @@ app.get('/', function (req, res) {
     res.render('homepage');
 });
 
-app.get('/login', function (req, res) {
-    res.render('login');
-});
-
-
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log('Listening on port 3000!'));
 
@@ -50,7 +45,7 @@ const redirectLogin = (req, res, next) => {
     console.log(req.session.userID);
     if (req.session.userID == undefined || req.session.userID == 0) {
         //console.log('Cheguei');
-        res.redirect('/login')
+        res.redirect('/homepage')
     } else {
         next()
     }
