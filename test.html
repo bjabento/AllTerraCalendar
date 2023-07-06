@@ -1,109 +1,126 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
 <head>
-  <title>Alterar Password</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    
-    .change-password-container {
-      max-width: 400px;
-      margin: 0 auto;
-      margin-top: 100px;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-    }
-    
-    .change-password-container h2 {
-      color: #000;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    .form-group {
-      margin-bottom: 20px;
-    }
-    
-    .form-group label {
-      font-weight: bold;
-      color: #000;
-    }
-    
-    .form-control {
-      border: 1px solid #000;
-    }
-    
-    .form-control:focus {
-      border-color: #000;
-      box-shadow: none;
-    }
-    
-    .password-toggle {
-      position: relative;
-    }
-    
-    .password-toggle .toggle-password {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      padding: 5px;
-      background-color: transparent;
-      border: none;
-    }
-    
-    .btn-primary {
-      background-color: #000;
-      border-color: #000;
-    }
-    
-    .btn-primary:hover {
-      background-color: #ccac00;
-      border-color: #ccac00;
-    }
-  </style>
+    <title>AllTerra</title>
+    <link rel="stylesheet" href="homepage.css">
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+        }
+
+        #loginSection {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            display: none;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .submit-btn {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="change-password-container">
-      <h2>Alterar Password</h2>
-      <form>
-        <div class="form-group">
-          <label for="new-password">Nova Password</label>
-          <div class="password-toggle">
-            <input type="password" class="form-control" id="new-password" placeholder="Digite a sua nova password">
-            <button type="button" class="toggle-password" onclick="togglePasswordVisibility('new-password')">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <a class="navbar-brand" href="/index">
+            <img src="images/logo.jpeg" width="220" height="40" class="d-inline-block align-top" alt="">
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <!-- Navigation items -->
+            </ul>
         </div>
-        <div class="form-group">
-          <label for="confirm-password">Confirmar Password</label>
-          <div class="password-toggle">
-            <input type="password" class="form-control" id="confirm-password" placeholder="Confirme a sua nova password">
-            <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirm-password')">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
+    </nav>
+
+    <div class="image-container">
+        <img src="images/hpskyline.jpg" alt="Image" onclick="showLoginForm()"/>
+        <div class="image-overlay" id="welcomemsg">
+            <p>Welcome to AllTerra</p>
         </div>
-        <button type="submit" class="btn btn-primary">Alterar Password</button>
-      </form>
     </div>
-  </div>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-  <script>
-    function togglePasswordVisibility(inputId) {
-      var passwordInput = document.getElementById(inputId);
-      var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-    }
-  </script>
+
+    <section class="ftco-section" id="loginSection">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="login-wrap p-4 p-md-5">
+                            <form action="/loginRequest" method="POST" class="signin-form">
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Email" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Password" required>
+                                </div>
+                                <div class="form-group submit-btn">
+                                    <button type="submit" onclick="sendLogin()"
+                                        class="form-control btn btn-primary rounded submit px-3">Sign
+                                        In</button>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bottom-text">
+        <p>© 2023 All rights reserved</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        function showLoginForm() {
+            var loginSection = document.getElementById('loginSection');
+            loginSection.style.display = "flex";
+        }
+    </script>
 </body>
+
 </html>
