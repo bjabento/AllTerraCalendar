@@ -4,7 +4,9 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   nome VARCHAR(255) NOT NULL,
-  tipo bit NOT NULL
+  tipo INT NOT NULL,
+  diasFerias INT,
+  dataReg DATE DEFAULT GETDATE()
 );
 
 -- Create the 'holidays' table
@@ -13,7 +15,7 @@ CREATE TABLE holidays (
   notas VARCHAR(255) NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
-  status VARCHAR(255) NOT NULL default('Pendente'),
+  status VARCHAR(255) NOT NULL DEFAULT 'Pendente',
   id_user INT,
   FOREIGN KEY (id_user) REFERENCES users(id)
   );

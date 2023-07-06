@@ -1,39 +1,39 @@
 const Sequelize = require('sequelize');
 const db = require('../configs/Database');
 
-const Users = db.define('users', {
+const Tickets = db.define('tickets', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    email: {
+    titulo: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    password: {
+    mensagem: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    nome: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    tipo: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    diasFerias: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-    },
-    diasdataRegFerias: {
+    datahora: {
         type: Sequelize.DATE,
+        allowNull: false
+    },
+    estado: {
+        type: Sequelize.STRING,
         allowNull: true
+    },
+    privacidade: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    id_user: {
+        type:Sequelize.INTEGER,
+        allowNull: false
     }
 }, {
     timestamps: false,
-    tableName: 'users' // Specify the table name if it's different from the model name
-});
+    tableName: 'tickets' // Specify the table name if it's different from the model name
+})
 
-module.exports = Users;
+module.exports = Tickets;

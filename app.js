@@ -18,14 +18,16 @@ const port = process.env.PORT || 3000
 app.listen(port, () => console.log('Listening on port 3000!'));
 
 app.use(express.json());
-app.use(express.static(__dirname + '/css'));
-app.use(express.static(__dirname + '/js'));
+app.use(express.static(__dirname + '/res'));
+/*app.use(express.static(__dirname + '/css'));
+app.use(express.static(__dirname + '/js'));*/
 
 const Sequelize = require('sequelize');
 const moment = require('moment');
 const db = require('./configs/Database');
 const User = require('./models/Users');
 const Holiday = require('./models/Holidays');
+const Ticket = require('./models/Tickets');
 /*const Locals = require('./models/Locals')
 const Feedback = require('./models/Feedback');
 const Admin = require('./models/Admins');*/

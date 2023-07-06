@@ -1,15 +1,15 @@
-	INSERT INTO users (email, password, nome, tipo)
+	INSERT INTO users (email, password, nome, tipo, diasFerias, dataReg)
 VALUES
-    ('test@gmail.com', '1234', 'test', 1),
-    ('example@gmail.com', 'abc123', 'example', 0),
-    ('user@example.com', 'password', 'user', 1),
-    ('john.doe@gmail.com', 'test456', 'john doe', 1),
-    ('jane.smith@gmail.com', 'p@ssw0rd', 'jane smith', 1),
-    ('demo@example.com', 'demo123', 'demo', 1),
-    ('admin@admin.com', 'admin123', 'admin', 1),
-    ('user1@example.com', 'secret', 'user1', 1),
-    ('user2@example.com', '987654', 'user2', 1),
-    ('user3@example.com', 'qwerty', 'user3', 1);
+    ('test@gmail.com', '1234', 'test', 1, 22, '2023-06-30'),
+    ('example@gmail.com', 'abc123', 'example', 0, 22, '2023-06-30'),
+    ('user@example.com', 'password', 'user', 1, 22, '2023-06-30'),
+    ('john.doe@gmail.com', 'test456', 'john doe', 1, 22, '2023-06-30'),
+    ('jane.smith@gmail.com', 'p@ssw0rd', 'jane smith', 1, 22, '2023-06-30'),
+    ('demo@example.com', 'demo123', 'demo', 1, 22, '2023-06-30'),
+    ('admin@admin.com', 'admin123', 'admin', 1, 22, '2023-06-30'),
+    ('user1@example.com', 'secret', 'user1', 1, 22, '2023-06-30'),
+    ('user2@example.com', '987654', 'user2', 1, 22, '2023-06-30'),
+    ('user3@example.com', 'qwerty', 'user3', 1, 22, '2023-06-30');
 
 		-- Insert mock data into the 'holidays' table
 INSERT INTO holidays (notas, start_date, end_date, status, id_user)
