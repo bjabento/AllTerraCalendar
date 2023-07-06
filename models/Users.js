@@ -27,7 +27,7 @@ const Users = db.define('users', {
         type: Sequelize.INTEGER,
         allowNull: true
     },
-    diasdataRegFerias: {
+    dataReg: {
         type: Sequelize.DATE,
         allowNull: true
     }
