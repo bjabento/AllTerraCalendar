@@ -45,7 +45,7 @@ const redirectLogin = (req, res, next) => {
     console.log(req.session.userID);
     if (req.session.userID == undefined || req.session.userID == 0) {
         //console.log('Cheguei');
-        res.redirect('/homepage')
+        res.redirect('/')
     } else {
         next()
     }
@@ -100,9 +100,9 @@ app.post('/loginRequest', (req, res) => {
             res.redirect('/index');
             //res.redirect('/holidayhistory');
         } else {
-            res.redirect('/login');
+            res.redirect('/');
         }
-    }).catch(err => res.redirect('/login'))
+    }).catch(err => res.redirect('/'))
 });
 
 app.get('/userHolidays', redirectLogin, (req, res) => {
