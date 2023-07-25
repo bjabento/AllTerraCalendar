@@ -70,6 +70,10 @@ app.get('/index', redirectLogin, function (req, res) {
     //console.log('Cheguei render');
     res.render('index', {session: req.session});
 });
+app.get('/profile', redirectLogin, function (req, res) {
+    //console.log('Cheguei render');
+    res.render('profile', {session: req.session});
+});
 
 app.post('/loginRequest', (req, res) => {
     var lMail = req.body.email;
@@ -146,6 +150,16 @@ app.post('/holidayRequest', (req, res) => {
 
     const registHday = new Holiday(regHday);
     registHday.save().then(result => console.log("Success")).catch(err => console.log("Luis Couto"))
+});
+
+app.get('/userProfile', redirectLogin, (req, res) => {
+    User.findAll({
+        where: {
+            id: req.session.userID
+        }
+    }).then(user => {
+        res.render('profile', { user: user,  name:req.session.userName});
+    }).catch(err => console.log(err));
 });
 
 // Handle logout
